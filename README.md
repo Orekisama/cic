@@ -1,2 +1,2 @@
 # cic
-# clear and restart..
+# clear and restart...
