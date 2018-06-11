@@ -3,5 +3,6 @@ from . import views
 
 app_name = 'zhuye'
 urlpatterns = [
-	path('ip/', views.get_ip, name='ip')
+	path('ping/', views.index, name='ping'),
+	path('ip/', views.get_ip, name='ip'),
 ]
