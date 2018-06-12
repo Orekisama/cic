@@ -13,7 +13,7 @@ def get_ip(request):
 		ip = request.META['HTTP_X_FORWARDED_FOR']
 	else:
 		ip = request.META['REMOTE_ADDR']  
-	return HttpResponse("Your local IP is: %s" % ip)
+	return HttpResponse("Your local IP is %s" % ip)
 
 
 def index(request):
@@ -21,9 +21,13 @@ def index(request):
 		form = AddForm(request.POST)
 		if form.is_valid():
 			print(form.cleaned_data)
-			#domain = form.cleaned_data['domain']
-			#ping = os.popen("ping %s" % domain)
-			#return HttpResponse(str(domain))
+			domain = form.cleaned_data['domain']
+			ping = os.popen("ping -c 3 %s" % domain)
+			result = ping.readlines()
+			result = str(result[0])
+			result = result.split()
+			result = result[2]
+			return HttpResponse(result)
 	else:
 		form = AddForm()
-	return render(request, 'zhuye/index.html')
+		return render(request, 'zhuye/index.html', {'form': form})
